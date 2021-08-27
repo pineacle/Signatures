@@ -1,0 +1,20 @@
+no-permission: "&cYou don't have permission to use this command."
+
+missing-args-sign-player: "&cUsage: /sign <signature...>"
+missing-args-sign-admin: "&cUsage: /sign <reload> | <signature...>"
+missing-args-unsign: "&cUsage: /unsign <line>"
+
+min-length: "&cYou do not meet the minimum character requirement."
+max-length: "&cYou have reached the maximum character requirement."
+limit-reached: "&cThis item has reached the maximum amount of signatures."
+
+hold-item: "&cYou must be holding an item to sign."
+only-one-signature: "&cYou can only sign this item once."
+no-signatures: "&cYou can't remove signatures if there are none!"
+signature-remove-outofbounds: "&cLine does not exist on item."
+signature-contains-blacklist: "&cYou are unable to use this as a signature."
+
+success-signed: "&aSuccessfully signed held item!"
+success-removed-line: "&aSuccessfully remove signature at line %line%."
+success-removed-all: "&aSuccessfully remove all signatures."
+success-reload: "&aSuccessfully reload config.yml."

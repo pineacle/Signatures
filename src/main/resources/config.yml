@@ -1,0 +1,26 @@
+settings:
+  language: en_US
+  min-length: 3 # minimum number of characters
+  max-length: 15 # maximum number of characters
+  signature-limit: 10 # number of signatures per item
+  one-signature: false # player can only sign once
+  enable-command-sign: false # directly sign an item you are holding | permission: signatures.direct
+  format:
+    header: "&7Signatures:"
+    each: " &7- "
+  previous-headers:
+    - "&7Signatures:"
+
+  # Rename this item using the same command </sign ...> and drag/drop onto an item
+  # Acquire via /signature item [player]
+  signature-item:
+    material: NAME_TAG
+    modelData: -1
+    name: "&bYour Signature &8(&7/sign&8)"
+    lore:
+      - "&8Current:&f %signature%"
+
+blacklist:
+  - "Dragon Crate Exclusive"
+
+version: 1

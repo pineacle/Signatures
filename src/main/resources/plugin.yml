@@ -1,0 +1,12 @@
+name: Signatures
+version: ${project.version}
+main: me.pineacle.signatures.SignaturesPlugin
+api-version: 1.16
+authors: [ pineacle ]
+description: Sign Items.
+commands:
+  sign:
+    aliases: signature
+    description: Sign the item you are currently holding
+  unsign:
+    description: Removes a signature from an item
