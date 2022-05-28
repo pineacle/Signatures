@@ -1,11 +1,13 @@
 package me.pineacle.signatures;
 
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTItem;
-import de.tr7zw.changeme.nbtapi.NBTList;
-import lombok.*;
+import de.tr7zw.nbtapi.NBTCompound;
+import de.tr7zw.nbtapi.NBTItem;
+import de.tr7zw.nbtapi.NBTList;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.var;
 import me.pineacle.signatures.utils.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -23,8 +25,7 @@ public class Signature {
     private final SignaturesPlugin plugin;
     private final Player player;
     private final ItemStack toSign;
-    @Setter
-    private boolean fit;
+    @Setter private boolean fit;
 
     /**
      * Adds a signature to an item via command
@@ -158,7 +159,6 @@ public class Signature {
 
                 setFit(true);
 
-                // store players uuid and there signature
                 signatures.add(args);
 
                 // handle if item has lore or not / add signatures
@@ -222,7 +222,7 @@ public class Signature {
 
                 lore.subList(start, (total + 1)).clear(); // clear section containing signatures
 
-                signatures.remove((line - 1)); // removes line at line - 1 (to start at 0)
+                signatures.remove((line - 1)); // removes line at (line - 1) so players don't start at 0
 
                 // re-add signatures
                 if (!signatures.isEmpty()) {
@@ -244,28 +244,6 @@ public class Signature {
                 signs.addAll(signatures);
 
                 player.sendMessage(plugin.getLanguageLoader().get("success-removed-line").replaceAll("%line%", String.valueOf(line)));
-
-            }
-        }
-    }
-
-    public void removeAll() {
-        if (toSign == null || toSign.getType() == Material.AIR) {
-            player.sendMessage(plugin.getLanguageLoader().get("hold-item"));
-        } else {
-            NBTItem item = new NBTItem(toSign, true);
-            NBTCompound compound = item.getCompound("signature-info");
-
-            // no signatures
-            if (compound == null || !toSign.getItemMeta().hasLore())
-                player.sendMessage(plugin.getLanguageLoader().get("no-signatures"));
-            else {
-
-                NBTItem nbtItem = new NBTItem(toSign, true);
-                nbtItem.removeKey("total");
-                compound.removeKey("signatures");
-
-                player.sendMessage(plugin.getLanguageLoader().get("success-removed-all"));
 
             }
         }

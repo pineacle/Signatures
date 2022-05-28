@@ -1,6 +1,6 @@
 package me.pineacle.signatures;
 
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.nbtapi.NBTItem;
 import lombok.Getter;
 import me.pineacle.signatures.commands.SignCommand;
 import me.pineacle.signatures.commands.UnsignCommand;
@@ -11,12 +11,14 @@ import me.pineacle.signatures.utils.ItemBuilder;
 import me.pineacle.signatures.utils.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -38,21 +40,16 @@ public final class SignaturesPlugin extends JavaPlugin {
         languageLoader = new LanguageLoader(this, configHandler);
         blacklist = _getBlacklist();
 
-
         getCommand("sign").setExecutor(new SignCommand(this));
         getCommand("unsign").setExecutor(new UnsignCommand(this));
-        Bukkit.getServer().getPluginManager().registerEvents(new SignedItemListener(this), this);
-    }
 
-    @Override
-    public void onDisable() {
+        Bukkit.getServer().getPluginManager().registerEvents(new SignedItemListener(this), this);
     }
 
     public ItemStack signItem() {
         ItemStack item = new ItemBuilder(Material.valueOf(getConfigHandler().get("settings.signature-item.material")))
                 .name(getConfigHandler().format("settings.signature-item.name"))
                 .customModelData(getConfigHandler().getConfiguration().getInt("settings.signature-item.modelData"))
-                //.persistentData(new NamespacedKey(this, "signature-item"), "EMPTY")
                 .build();
         NBTItem nbtItem = new NBTItem(item, true);
         nbtItem.setString("signature-item", "EMPTY");
@@ -74,7 +71,7 @@ public final class SignaturesPlugin extends JavaPlugin {
             try {
                 blacklist.add(Pattern.compile(entry).asPredicate());
             } catch (final PatternSyntaxException e) {
-                Bukkit.getServer().getLogger().warning("Invalid blacklist regex: " + entry);
+                getLogger().warning("Error reading blacklist regex: " + entry);
             }
         });
 

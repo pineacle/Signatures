@@ -1,15 +1,12 @@
 settings:
   language: en_US
-  min-length: 3 # minimum number of characters
-  max-length: 15 # maximum number of characters
+  min-length: 3 # minimum number of characters excluding color
+  max-length: 15 # maximum number of characters excluding color
   signature-limit: 10 # number of signatures per item
-  one-signature: false # player can only sign once
-  enable-command-sign: false # directly sign an item you are holding | permission: signatures.direct
-  format:
+  direct-sign: false # directly sign an item you are holding | permission needed if false: signatures.sign.direct
+  format: # -- edit this BEFORE you put into your production environment! You cannot remove previous signatures after editing. --
     header: "&7Signatures:"
     each: " &7- "
-  previous-headers:
-    - "&7Signatures:"
 
   # Rename this item using the same command </sign ...> and drag/drop onto an item
   # Acquire via /signature item [player]
@@ -21,6 +18,8 @@ settings:
       - "&8Current:&f %signature%"
 
 blacklist:
-  - "Dragon Crate Exclusive"
+  - 'frick'
 
+# recommend not to change
+# will create a backup if a new config is needed
 version: 1

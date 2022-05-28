@@ -1,9 +1,8 @@
 package me.pineacle.signatures.listeners;
 
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.nbtapi.NBTItem;
 import me.pineacle.signatures.Signature;
 import me.pineacle.signatures.SignaturesPlugin;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,8 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Arrays;
 
 public class SignedItemListener implements Listener {
 
@@ -24,7 +21,7 @@ public class SignedItemListener implements Listener {
 
     @EventHandler
     public void dragOnItem(InventoryClickEvent e) {
-        if (!(e.getWhoClicked() instanceof Player)) return; // why
+        if (!(e.getWhoClicked() instanceof Player)) return;
         Player p = (Player) e.getWhoClicked();
 
         if (!e.getInventory().getType().equals(InventoryType.CRAFTING))
@@ -49,8 +46,6 @@ public class SignedItemListener implements Listener {
                 return;
             }
             String signature = cursorNBT.getString("signature-item");
-
-            // new Signature(plugin, p, current).sign(signature);
 
             Signature toSign = new Signature(plugin, p, current);
             toSign.sign(signature);

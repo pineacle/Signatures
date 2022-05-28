@@ -3,7 +3,8 @@ version: ${project.version}
 main: me.pineacle.signatures.SignaturesPlugin
 api-version: 1.16
 authors: [ pineacle ]
-description: Sign Items.
+depend: [NBTAPI]
+description: Personalize your item by allowing other players to add their signature.
 commands:
   sign:
     aliases: signature

@@ -1,7 +1,7 @@
 package me.pineacle.signatures.commands;
 
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.nbtapi.NBTCompound;
+import de.tr7zw.nbtapi.NBTItem;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.var;
@@ -31,47 +31,37 @@ public class UnsignCommand implements CommandExecutor, TabExecutor {
         return false;
     }
 
-    private boolean handleConsole(CommandSender sender, String[] args) {
+    private void handleConsole(CommandSender sender, String[] args) {
         sender.sendMessage("Console can't unsign items.");
-        return false;
     }
 
     @SneakyThrows
-    private boolean handlePlayer(CommandSender sender, String[] args) {
+    private void handlePlayer(CommandSender sender, String[] args) {
         var player = (Player) sender;
         var item = player.getInventory().getItemInMainHand();
         if (!player.hasPermission("signatures.unsign")) {
             player.sendMessage(plugin.getLanguageLoader().get("no-permission"));
-            return false;
         } else {
-            // /unsign
+
             if (args.length == 0) {
                 sender.sendMessage(plugin.getLanguageLoader().get("missing-args-unsign"));
-                return false;
+                return;
             }
 
-            // /unsign [int]
             if (args.length == 1) {
 
-                // remove line
                 if (StringUtils.isNumeric(args[0])) {
                     int line = Integer.parseInt(args[0]);
                     if (line <= 0) {
                         player.sendMessage("§cPlease specify a line in the signature section.");
-                        return false;
+                        return;
                     }
                     new Signature(plugin, player, item).remove(line);
                 } else {
-                    if (args[0].equalsIgnoreCase("*") || args[0].equalsIgnoreCase("all")) {
-                        if (player.hasPermission("signatures.admin"))
-                            new Signature(plugin, player, item).removeAll();
-                    } else
-                        player.sendMessage("§cYou must enter a number");
+                    player.sendMessage("§cYou must enter a number");
                 }
-                return false;
             }
         }
-        return false;
     }
 
     @Override
